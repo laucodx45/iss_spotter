@@ -31,7 +31,6 @@ const fetchCoordsByIP = (ipAddress, callback) => {
       return;
     }
   
-    
     const parseBody = JSON.parse(body);
     // success : false
     if (!parseBody.success) {
@@ -47,7 +46,30 @@ const fetchCoordsByIP = (ipAddress, callback) => {
   });
 };
 
+const fetchISSFlyOverTimes = function(coords, callback) {
+  const latitude = coords.latitude;
+  const longitude = coords.longitude;
+
+  request(`https://iss-flyover.herokuapp.com/json/?lat=${latitude}&lon=${longitude}`, (error, response, body) => {
+
+    if (error) {
+      callback(error, null);
+      return;
+    }
+
+    if (response.statusCode !== 200) {
+      const message = `Status code ${response.statusCode} when fetched for Fly Over Times. Response: ${body}`;
+      callback(Error(message), null);
+    }
+
+    const parseBody = JSON.parse(body);
+    // Do you have to return? It seems like it didn't affect the output.
+    return callback(null, parseBody.response);
+  });
+};
+
 module.exports = {
   fetchMyIP,
-  fetchCoordsByIP
+  fetchCoordsByIP,
+  fetchISSFlyOverTimes
 };
