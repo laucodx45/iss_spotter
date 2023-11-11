@@ -39,6 +39,9 @@ const fetchCoordsByIP = (ipAddress, callback) => {
       const message = `Success status was ${parseBody.success}, Server message says ${parseBody.message} when fetched for IP address ${parseBody.ip}`;
       callback(Error(message), null);
       return;
+    } else {
+      const resultData = {latitude: parseBody.latitude, longitude: parseBody.longitude};
+      return callback(null, resultData);
     }
     
   });
