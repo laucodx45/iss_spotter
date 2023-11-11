@@ -21,12 +21,12 @@ const {fetchISSFlyOverTimes} = require('./iss');
 //   console.log('It worked! Returned lat/lng:' , data);
 // });
 
-fetchISSFlyOverTimes({latitude: 70, longitude: 100}, (error, data) => {
-  if (error) {
-    console.log("It didn't work!" , error);
-    return;
-  }
+// fetchISSFlyOverTimes({latitude: 70, longitude: 100}, (error, data) => {
+//   if (error) {
+//     console.log("It didn't work!" , error);
+//     return;
+//   }
 
-  console.log("It worked! Returned Fly Over Times: ", data);
+//   console.log("It worked! Returned Fly Over Times: ", data);
 
-});
+// });

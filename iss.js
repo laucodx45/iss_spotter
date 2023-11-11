@@ -58,8 +58,9 @@ const fetchISSFlyOverTimes = function(coords, callback) {
     }
 
     if (response.statusCode !== 200) {
-      const message = `Status code ${response.statusCode} when fetched for Fly Over Times. Response: ${body}`;
+      const message = `Status code ${response.statusCode} when fetching ISS pass time: ${body}`;
       callback(Error(message), null);
+      return;
     }
 
     const parseBody = JSON.parse(body);
