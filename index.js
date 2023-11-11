@@ -30,10 +30,21 @@ const {nextISSTimesForMyLocation} = require('./iss');
 //   console.log("It worked! Returned Fly Over Times: ", data);
 
 // });
+const printPassTimes = (passTimes) => {
+
+  for (const element of passTimes) {
+    const riseTime = element.risetime;
+    const dateTime = new Date(0);
+    dateTime.setUTCSeconds(riseTime);
+    const duration = element.duration;
+    console.log(`Next pass at ${dateTime} for ${duration}`);
+  }
+};
+
 nextISSTimesForMyLocation((error, passTimes) => {
   if (error) {
     return console.log("It didn't work!", error);
   }
   // success, print out the deets!
-  console.log(passTimes);
+  printPassTimes(passTimes);
 });
