@@ -1,11 +1,9 @@
 const { error } = require('console');
 const request = require('request');
 
-const urlForIP = 'https://api64.ipify.org/?format=json';
-
 const fetchMyIP = function(callback) {
   // use request to fetch IP address from JSON API
-  request(urlForIP, (error, response, body) => {
+  request('https://api64.ipify.org/?format=json', (error, response, body) => {
     if (error) {
       return callback(error, null);
     }
@@ -17,8 +15,8 @@ const fetchMyIP = function(callback) {
     }
     // in the callback fn it takes in (error, ipAddress)
     // therefore we have to put (null, ipAddress) meaning at this point, error should be null
-    const ipAddress = JSON.parse(body);
-    callback(null, ipAddress);
+    const ipObj = JSON.parse(body);
+    callback(null, ipObj.ip);
     
   });
 };
@@ -69,8 +67,20 @@ const fetchISSFlyOverTimes = function(coords, callback) {
   });
 };
 
+const nextISSTimesForMyLocation = function(callback) {
+  fetchMyIP((error, ip) => {
+    if (error) {
+      console.log("It didn't work: ", error);
+      return;
+    }
+
+    fetchCoordsByIP
+  })
+};
+
 module.exports = {
   fetchMyIP,
   fetchCoordsByIP,
-  fetchISSFlyOverTimes
+  fetchISSFlyOverTimes,
+  nextISSTimesForMyLocation
 };
