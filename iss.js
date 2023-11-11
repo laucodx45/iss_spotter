@@ -73,9 +73,21 @@ const nextISSTimesForMyLocation = function(callback) {
       console.log("It didn't work: ", error);
       return;
     }
-
-    fetchCoordsByIP
-  })
+    // If no error use the ip returned by fetchMyIP as argument for fetchCorrdsByIP
+    fetchCoordsByIP(ip, (error, data) => {
+      if (error) {
+        console.log("It didn't work: ", error);
+        return;
+      }
+      fetchISSFlyOverTimes(data, (error, data) => {
+        if (error) {
+          console.log("It didn't work: ", error);
+          return;
+        }
+        callback(null, data);
+      });
+    });
+  });
 };
 
 module.exports = {
